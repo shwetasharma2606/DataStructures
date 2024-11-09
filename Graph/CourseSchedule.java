@@ -19,18 +19,18 @@ class CourseSchedule {
         prerequisites[2] = a2;
         int[] a3 = {3,2};
         prerequisites[3] = a3; 
-        System.out.println(canFinish(4,prerequisites)); // Output: [0,2,1,3]
+        System.out.println(canFinish(4,prerequisites)); // Output: true
         */
 
         /*int[][] prerequisites = new int[0][0];
-        System.out.println(canFinish(2,prerequisites));*/  //Output : [1,0]
+        System.out.println(canFinish(2,prerequisites));*/  //Output : true
 
         int[][] prerequisites = new int[2][2];
         int[] a0 = {1,0};
         prerequisites[0] = a0;
         int[] a1 = {0,1};
         prerequisites[1] = a1;
-        System.out.println(canFinish(2,prerequisites)); //Output : []
+        System.out.println(canFinish(2,prerequisites)); //Output : false
       
 
     }
