@@ -30,15 +30,58 @@ class KDistanceNodes {
             this.val = val;
         }
     }
-    
     public static List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         List<Integer> ans = new ArrayList<>();
         TreeNode[] parent = new TreeNode[501];
         fillParent(parent, root, null);
         Set<Integer> visited = new HashSet<>();
         distanceKHelper(target, k,ans,parent, visited);
+
+        Queue<TreeNode> ans1 = new ArrayDeque<>();
+        ans1.add(target);
+        Set<Integer> visited1 = new HashSet<>();
+        distanceKHelper1(ans1, parent, visited1, target, k);
+        System.out.println("2nd method :: "); 
+        if(ans1!=null)
+            while(!ans1.isEmpty())
+                System.out.println(ans1.poll().val); 
         return ans;
     }
+  
+//Method 1
+    public static void fillParent1(TreeNode[] parent, TreeNode curr, TreeNode root){
+        if(curr!=null){
+            parent[curr.val] = root;
+            fillParent(parent, curr.left, curr);
+            fillParent(parent, curr.right, curr);
+        }
+    }
+    public static void distanceKHelper1(Queue<TreeNode> ans ,TreeNode[] parent, Set<Integer> visited , TreeNode curr, int k){
+       
+        while(k>0){
+            int size = ans.size();
+            while(size!=0){
+                TreeNode n = ans.poll();
+                if(n!=null && !visited.contains(n.val)){
+                    visited.add(n.val);
+                    if(n.left!=null && !visited.contains(n.left.val) ) ans.add(n.left);
+                    if(n.right!=null && !visited.contains(n.right.val) ) ans.add(n.right);
+                    if(parent[n.val]!=null && !visited.contains(parent[n.val].val) ) ans.add(parent[n.val]);
+
+                    k--;
+                    size--;
+                }
+                
+            }
+        }
+        
+
+    }
+
+
+    
+    ///Method 2
+   
 
     public static void fillParent(TreeNode[] parent, TreeNode root, TreeNode par){
         if(root==null) return;
@@ -62,5 +105,5 @@ class KDistanceNodes {
         distanceKHelper(target.left, k-1, ans, parent, visited);
         distanceKHelper(target.right, k-1, ans, parent, visited);
     }
-
+ 
 }
